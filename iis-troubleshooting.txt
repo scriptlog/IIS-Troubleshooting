@@ -1,0 +1,40 @@
+# Cek versi IIS di WINDOWS
+
+reg query HKLM\SOFTWARE\Microsoft\InetStp
+
+
+# TROUBLSHOOTING PERMISSION WINDOWS - IIS
+
+1. Ambil alih kepemilikkan folder:
+
+takeown /f "C:\inetpub\wwwroot\scriptlog\public\log" /r /d y
+takeown /f "C:\inetpub\wwwroot\scriptlog\public\cache" /r /d y
+takeown /f "C:\inetpub\wwwroot\scriptlog\public\themes" /r /d y
+takeown /f "C:\inetpub\wwwroot\scriptlog\admin\plugins" /r /d y
+
+2. Grant full controll ke Administrator
+
+icacls "C:\inetpub\wwwroot\scriptlog\public\log" /grant Administrators:(OI)(CI)F
+icacls "C:\inetpub\wwwroot\scriptlog\public\cache" /grant Administrators:(OI)(CI)F
+icacls "C:\inetpub\wwwroot\scriptlog\public\themes" /grant Administrators:(OI)(CI)F
+icacls "C:\inetpub\wwwroot\scriptlog\admin\plugins" /grant Administrators:(OI)(CI)F
+
+
+3. Hapus atribut read-only
+
+attrib -r "C:\inetpub\wwwroot\scriptlog\public\log" /s /d
+attrib -r "C:\inetpub\wwwroot\scriptlog\public\cache" /s /d
+attrib -r "C:\inetpub\wwwroot\scriptlog\public\themes" /s /d
+attrib -r "C:\inetpub\wwwroot\scriptlog\admin\plugins" /s /d
+
+
+4. Grant Modify ke App Pool Scriptlog
+
+icacls "C:\inetpub\wwwroot\scriptlog\public\log" /grant "IIS AppPool\Scriptlog:(OI)(CI)M"
+icacls "C:\inetpub\wwwroot\scriptlog\public\cache" /grant "IIS AppPool\Scriptlog:(OI)(CI)M"
+icacls "C:\inetpub\wwwroot\scriptlog\public\themes" /grant "IIS AppPool\Scriptlog:(OI)(CI)M"
+icacls "C:\inetpub\wwwroot\scriptlog\admin\plugins" /grant "IIS AppPool\Scriptlog:(OI)(CI)M"
+
+
+5. Restart IIS
+iisreset
