@@ -43,4 +43,4 @@ troubleshoot-iis.bat
 
 ## License
 
-[MIT](LICENSE)
+[CC0 1.0 Universal (Public Domain)](LICENSE)
